@@ -69,17 +69,15 @@ class BaseClient:
 
     @staticmethod
     def get_first(body: str, pattern: str):
-        m = re.search(pattern, body)
+        m = re.search(pattern, body.replace("\n", ""))
         results = m.groups()
         if not results:
-            raise MatchException("Failed to match", pattern)
+           return results
         return results[0]
 
     @staticmethod
     def get_all(body: str, pattern: str):
         results = re.findall(pattern, body)
-        if not results:
-            raise MatchException("Failed to match", pattern)
         return results
 
     def search_series(self, search_string: str) -> List[Series]:

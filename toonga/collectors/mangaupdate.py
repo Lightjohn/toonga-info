@@ -42,14 +42,3 @@ class Client(BaseClient):
         if not series.details or not series.details.chapters:
             self.get_series(series)
         return series.details.chapters
-
-
-if __name__ == "__main__":
-    # token = login("Lightyjohn", "jQyeWqOUd8CTDwQGmPAhCexRc")
-    c = Client()
-    all_series = c.search_series("I’ll Be The Matriarch In This Life")
-    serie = all_series[0]
-    print(serie.name, serie.id)
-    s = c.get_series(serie)
-    print(s)
-    print(s.details.chapters)

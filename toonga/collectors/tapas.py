@@ -37,15 +37,3 @@ class Client(BaseClient, ABC):
             series.details = SeriesDetails()
         series.add_chapters([Chapter(num=i) for i in self.get_all(data["data"]["body"], r"Episode (\d+)")])
         return series.details.chapters
-
-
-if __name__ == "__main__":
-    c = Client()
-
-    all_series = c.search_series("After the End")
-    serie = all_series[0]
-    print(serie)
-    serie = c.get_series(serie)
-    print(serie)
-    all_chapters = c.get_chapters(serie)
-    print(all_chapters)

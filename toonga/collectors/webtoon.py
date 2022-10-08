@@ -22,6 +22,8 @@ class Client(BaseClient):
         r = self.s.get(self.api_url + "/ac", params=params)
         self.check_response(r)
         data = r.json()
+        if not data["items"]:
+            return []
         return [Series(name=i[0][0], id=i[3][0]) for i in data["items"][0]]
 
     def get_series(self, series: Series) -> Series:
@@ -30,12 +32,13 @@ class Client(BaseClient):
         )  # Will generate a 301 to good url
         self.check_response(r)
         series.url = r.url
-        summary = self.get_first(r.text, r'<p class="summary">(.*?)</p>')
+        summary = self.get_first(r.text, r"<p class=\"summary\">(.*?)</p>")
         chapters = None
-        for reg in ["Episode", "Ep."]:
+        for reg in ["Episode", "Ep.?"]:
             try:
                 chapters = self.get_all(r.text, rf"{reg} (\d+)")
-                break
+                if chapters:
+                    break
             except MatchException:
                 pass
         if not chapters or not summary:
@@ -49,14 +52,3 @@ class Client(BaseClient):
         if not series.details or not series.details.chapters:
             self.get_series(series)
         return series.details.chapters
-
-
-if __name__ == "__main__":
-    c = Client()
-    all_series = c.search_series("love")
-    serie = all_series[0]
-    print(serie.name, serie.name)
-
-    s = c.get_series(serie)
-    print(s)
-    print(s.details.chapters)

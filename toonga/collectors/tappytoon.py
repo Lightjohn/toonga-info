@@ -60,15 +60,3 @@ class Client(BaseClient):
         data = r.json()
         series.add_chapters([Chapter(id=i["id"], num=i["order"]) for i in data])
         return series.details.chapters
-
-
-if __name__ == "__main__":
-    c = Client()
-    all_series = c.search_series("Father, I don't Want this Marriage")
-    print(all_series)
-
-    s = c.get_series(Series(all_series[0].id))
-    print(s)
-
-    chapters = c.get_chapters(s)
-    print(chapters)
