@@ -52,7 +52,7 @@ class BaseClient:
 
     def __init__(self, user=None, password=None, api_url=None):
         self.s = requests.Session()
-        retries = Retry(total=2)
+        retries = Retry(total=2, backoff_factor=0.5)
         self.s.mount('https://', HTTPAdapter(max_retries=retries))
         self.api_url = api_url
         if user and password:
