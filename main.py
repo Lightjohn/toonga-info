@@ -50,7 +50,7 @@ def search_from_json(json_path):
                 [float(i) for i, j in last_chapter_collector]) <= last_chapter else "CAN BE UPDATED"
             print(title + ":", is_okay)
             print("  Existing:", last_chapter, ", ".join(f"{j}: {i}" for i, j in last_chapter_collector))
-            time.sleep(2)   # Be kind
+            time.sleep(2)  # Be kind
         except Exception as e:
             print("Error happened")
             print(title, collector.name)

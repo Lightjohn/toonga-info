@@ -1,8 +1,4 @@
-import re
-from abc import ABC
 from typing import List
-
-import requests
 
 from .Base import BaseClient, Series, Chapter
 

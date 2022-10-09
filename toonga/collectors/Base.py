@@ -4,6 +4,7 @@ from typing import List
 
 import requests
 from requests import Response
+from requests.adapters import HTTPAdapter, Retry
 
 
 @dataclass
@@ -51,6 +52,8 @@ class BaseClient:
 
     def __init__(self, user=None, password=None, api_url=None):
         self.s = requests.Session()
+        retries = Retry(total=2)
+        self.s.mount('https://', HTTPAdapter(max_retries=retries))
         self.api_url = api_url
         if user and password:
             self.login(user, password)
@@ -72,7 +75,7 @@ class BaseClient:
         m = re.search(pattern, body.replace("\n", ""))
         results = m.groups()
         if not results:
-           return results
+            return results
         return results[0]
 
     @staticmethod

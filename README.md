@@ -1,9 +1,11 @@
 # toonga-info
+
 Get basic information from common sites about manga / manwha / webtoons
 
 Mostly made to get alternatives titles for a manga /webtoon and/or latest chapter available.
 
 Currently the info are gathered for each supported website:
+
 * name
 * last chapters
 * summary
@@ -12,7 +14,8 @@ Currently the info are gathered for each supported website:
 # Features
 
 Supported websites
-* MangaUpdate / BakaUpdate 
+
+* MangaUpdate / BakaUpdate
 * Mangadex
 * tapas
 * tappytoon
